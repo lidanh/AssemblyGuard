@@ -25,7 +25,7 @@ If you're using linux in [Vagrant](http://www.vagrantup.com) environment, inotif
 
 The workaround for that is **vagrant rsync folders**, which is supported since vagrant 1.5 (so update your vagrant to the last release first!).
 
-Config your shared folder to use rsync: In you ``VagrantFile`` config rsync as any other synced folder, by just specifying the "rsync" type:
+Config your shared folder to use rsync: In your ``VagrantFile`` config rsync as any other synced folder, by just specifying the "rsync" type:
 
 `config.vm.synced_folder "/shared_folder_host_path", "/vm_path", type: "rsync"`
 
