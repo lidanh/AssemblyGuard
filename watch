@@ -1,0 +1,29 @@
+#!/bin/sh
+
+#############################################
+#    Assembly Guard- continuous make        #
+#                                           #
+#            By Lidan Hifi                  #
+#                                           #
+# Usage:                                    #
+# sudo apt-get install inotify-tools        #
+# $>  ./watch .                             #
+#############################################
+
+FORMAT="%T %f"
+TIMEFMT="%d/%m/%y %H:%M:%S"
+
+WATCHEDFILE=$*
+EXCLUDE="(.*.o|.*.bin)"
+
+printf "\033c"  # clear screen
+echo "\033[0;36mWatching for files in $WATCHEDFILE ... \033[0m"
+
+inotifywait -qme move_self,close_write --exclude "$EXCLUDE" --timefmt "$TIMEFMT" --format "$FORMAT" $WATCHEDFILE \
+|while read date time file; do
+  printf "\033c"    # clear screen
+  filename=$( echo "${file}" | rev | cut -c 8- | rev | cut -c 2- )
+  echo "\033[0;36m${date} ${time} \033[1;32m${filename} has changed. Compiling...\033[0m"
+  make --silent 2>&1 | sed -n '/^.*/,/.$/{s/^.*error:.*$/\x1b[35m\xe2\x9c\x98 &\x1b[0m/g; s/^.*warning:.*$/\x1b[33m\xe2\x9e\x9c &\x1b[0m/g; /^make\: \*\*\*/ d; p}'
+done
+
