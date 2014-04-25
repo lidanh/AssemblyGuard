@@ -10,7 +10,7 @@ The script uses ``inotify-tools`` linux package, so it should be installed befor
 1. install **inotify-tools**:
 ```sudo apt-get install inotify-tools```
 
-2. [download the script here](http://) (right click & save), and put it in your working directory.
+2. [download the script here](https://raw.githubusercontent.com/lidanh/AssemblyGuard/master/watch) (right click & save), and put it in your working directory.
 3. run the following command: ``./watch .``
 
 make sure that you have ``makefile`` in that directory.
