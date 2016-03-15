@@ -21,12 +21,14 @@ If you're a bad programmer like me, you should see something like this:
 
 ### For Vagrant users
 
-If you're using linux in [Vagrant](http://www.vagrantup.com) environment, inotify-tools will not working properly, because vagrant shared folders is NFS shares, which doesn't support inotify events.
+* If you're using linux in [Vagrant](http://www.vagrantup.com) environment, *inotify-tools* will not working properly, because vagrant shared folders is NFS shares, which doesn't support inotify events.
 
-The workaround for that is **vagrant rsync folders**, which is supported since vagrant 1.5 (so update your vagrant to the last release first!).
+* The workaround for that is **vagrant rsync folders**, which is supported since vagrant 1.5 (so update your vagrant to the last release first!).
 
-Config your shared folder to use rsync: In your ``VagrantFile`` config rsync as any other synced folder, by just specifying the "rsync" type:
+* Config your shared folder to use rsync: In your ``VagrantFile`` config rsync as any other synced folder, by just specifying the "rsync" type:
 
-`config.vm.synced_folder "/shared_folder_host_path", "/vm_path", type: "rsync"`
+```ruby
+config.vm.synced_folder "/shared_folder_host_path", "/vm_path", type: "rsync"
+```
 
-Then, open another console tab and run ``vagrant rsync-auto`` command in the background, for auto sync the shared folder with the VM via rsync.
+* Then, open another console tab and run ``vagrant rsync-auto`` command in the background, for auto sync the shared folder with the VM via rsync.
